@@ -88,14 +88,16 @@ def getAttributes(my_df, my_dict):
     return my_df    
     
 # Function to filter XARRAY based on platform, Var and DEPTH
-def filter_xarr(df_toPlot, data_dict, platform, var, depth_range):
+def filter_xarr_DEPTH(df_toPlot, data_dict, platform, depth_range):
     
     # find indices for each platform for the selected data
     index = df_toPlot[df_toPlot['Platform']==platform].index.tolist()
     
     # Filer data using the indexes of the filtered elements
-    xarr_sel = data_dict[platform]['data'][var].isel(TIME=index,
-                                                     DEPTH=slice(depth_range[0], depth_range[1]+1))
+    xarr_sel = data_dict[platform]['data'].isel(TIME=index,
+                                                LATITUDE=index,
+                                                LONGITUDE=index,
+                                                DEPTH=slice(depth_range[0], depth_range[1]+1))
     return xarr_sel
 
 
