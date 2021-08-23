@@ -12,3 +12,11 @@ The multi-year selection for CTD campaigns at sea is supported via the **year** 
 Citation: refer to the EC INTAROS project (https://cordis.europa.eu/project/id/727890).
 
 Additional guidance and instructions are included within the Notebook itself.
+
+
+## Configuration
+From this Jupyter Lab environment, click on the "New" button, open a "Terminal" and then execute all the following shell commands:  
+```
+chmod +x configure_rgeostats.sh
+./configure_rgeostats.sh
+```
