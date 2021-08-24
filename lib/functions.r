@@ -619,7 +619,7 @@ aggregate_depth <- function(dbin, depth0, ddepth, ndepth, flag.center = FALSE)
   dx       = box[2,] - box[1,]
   dx[3]    = ddepth
   dbbox    = db.create(nx = nx, x0 = x0, dx = dx)
-  dbout    = db.regularize(dbin, dbbox, flag.center=flag.center, verbose=TRUE)
+  dbout    = db.regularize(dbin, dbbox, flag.center=flag.center)
 
   # Remove the unused third dimension
   dbout = db.locerase(dbout, "x")
@@ -986,12 +986,12 @@ average_depth <- function(dbin, var, depth0, ndepth, ddepth)
     depths[i] = ddepth * (i + 0.5)
     depth_lim = c(depths[i] - ddepth/2, depths[i] + ddepth/2)
     dbin = apply_sel(dbin, depth_lim = depth_lim)
-   
+
     # Calculate the mean and variance
     tab      = db.extract(dbin,var)
     count[i] = length(tab)
-    means[i] = mean(na.omit(tab))
-    vars[i]  = var(na.omit(tab))
+    means[i] = mean(tab)
+    vars[i]  = var(tab)
   }
   res = list(count=count, means=means, vars=vars, depths=depths)
   res

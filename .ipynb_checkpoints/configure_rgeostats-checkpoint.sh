@@ -53,10 +53,21 @@ wget http://rgeostats.free.fr/doc/Files/workshop.tar.gz
 tar xvf workshop.tar.gz
 rm workshop.tar.gz
 
-# IMR Datasets
-wget http://rgeostats.free.fr/doc/Files/imr_data_0_to_100m.csv
-mv imr_data_0_to_100m.csv data/
+# # IMR Datasets
+# wget http://rgeostats.free.fr/doc/Files/imr_data_0_to_100m.csv
+# mv imr_data_0_to_100m.csv ../data/
 
-wget http://rgeostats.free.fr/doc/Files/imr_data_by_10m.csv
-mv imr_data_by_10m.csv data/
+# wget http://rgeostats.free.fr/doc/Files/imr_data_by_10m.csv
+# mv imr_data_by_10m.csv ../data/
+
+# Removed unwanted files and folders
+rm -f estimate.ipynb
+rm -f geostats_course.ipynb
+rm -f imr_case_study.ipynb
+rm -rf pdf
+rm -rf rmd
+rm -rf data
+rm -rf html
+rm -rf images
+
 
