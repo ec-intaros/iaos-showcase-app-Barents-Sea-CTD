@@ -1,8 +1,8 @@
 # Barrents sea - CTD data processing
 ## Introduction
-This Notebook provides guidance and support for data processing of CTD data, in particular by making use of the Geostatistical Library (RIntaros / RGeostats) for the modelisation of geostatistical relationships between variables, and to interpolate gridded data maps out of irregular CTD point measurements.
+This Notebook provides guidance and support for data processing of Conductivity Temperature Depth (CTD) data, in particular by making use of the Geostatistical Library (RIntaros / RGeostats) for the modelisation of geostatistical relationships between variables, and to interpolate gridded data maps out of irregular CTD point measurements.
 
-The CTD data access point is configured for the OPeNDAP Hyrax server hosted at NODC: 
+The online access to CTD data is configured for the OPeNDAP Hyrax server hosted at IMR / NMDC: 
 http://opendap1.nodc.no/opendap/physics/point/yearly/contents.html 
 
 Note: for this server, the **.nc4** extension from the data access URLs is not supported.

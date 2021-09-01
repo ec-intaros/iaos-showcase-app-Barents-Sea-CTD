@@ -125,18 +125,16 @@ def check_alignment(data_dict, pc, var, align_and_nan, vmin_dict):
     vmin = float(xarr.attrs['geospatial_vertical_min'])
 
     if vmin == 0:
-        print(f'Platform: {pc} - Vertical min = {vmin}')
+        print(f'Platform: {pc}; Vertical min: {vmin}; Var: {var}')
         
     elif vmin==1 and vmin_dict[pc][var]==False and align_and_nan: 
         # shift to the right and add nan in first position 
-        print(f'Platform: {pc} - Vertical min = {vmin} --> aligning and add nan')
+        print(f'Platform: {pc}; Vertical min: {vmin}; Var: {var} --> aligning and add nan')
         data_dict[pc]['data'][var].data = adjust_with_vmin(xarr_var, value=np.nan)
-        vmin_dict[pc][var] = True # to avoid doing hte vmin adjustment for this pc/var more than once
-        print('this is a test')
-        
+        vmin_dict[pc][var] = True # to avoid doing hte vmin adjustment for this pc/var more than once        
     elif vmin==1 and vmin_dict[pc][var]==False and not align_and_nan: 
         # No need to shift, this occurred already in the data extraction
-        print(f'Platform: {pc} - Vertical min = {vmin} --> data has been aligned already')
+        print(f'Platform: {pc}; Vertical min: {vmin}; Var: {var} --> data has been aligned already')
         vmin_dict[pc][var] = True # to avoid doing hte vmin adjustment for this pc/var more than once
         
         
