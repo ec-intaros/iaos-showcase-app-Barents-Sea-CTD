@@ -1,0 +1,17 @@
+name: env_intaros
+channels:
+  - terradue
+  - conda-forge
+dependencies:
+  - python=3.7
+  - pydap
+  - ipykernel
+  - shapely
+  - requests
+  - pip
+  - pyyaml
+  - matplotlib
+  - xarray
+  - geopandas
+  - bokeh
+  
