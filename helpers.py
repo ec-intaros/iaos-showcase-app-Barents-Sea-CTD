@@ -1,11 +1,10 @@
 # Import modules
-import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import pprint
 import xarray as xr
 import requests
 import re
+
 
 # Function to retrieve DDS info (sizes of 'TIME', 'LATITUDE', 'LONGITUDE', 'DEPTH', 'POSITION')
 def retrieveDDSinfo(dds):
@@ -41,6 +40,7 @@ def getQueryString(mydict, keylist):
 #     print('Query string:', que_str)
     return que_str
 
+
 # Function to fetch data using xarray.open_dataset and save attributes
 def fetch_data(url, year):
     remote_data = xr.open_dataset(
@@ -67,6 +67,7 @@ def fetch_data(url, year):
     
     return remote_data, data_attr
 
+
 # Function to save Attributes to a database
 def getAttributes(my_df, my_dict):
     
@@ -86,6 +87,7 @@ def getAttributes(my_df, my_dict):
         my_df.loc[key,'Lat_max'] = [my_dict[key]['data_attr'][11].astype(float)]
 
     return my_df    
+    
     
 # Function to filter XARRAY based on platform, Var and DEPTH
 def filter_xarr_DEPTH(df_toPlot, data_dict, platform, depth_range):
@@ -116,6 +118,7 @@ def adjust_with_vmin(xarr_var, value):
     # return the trimmed array, to re-assign it to the original element
     return xarr_var_trimmed
 
+
 # Function to check whether data should be aligned if vmin = 1, and align if so if has not been done already
 def check_alignment(data_dict, pc, var, align_and_nan, vmin_dict):
     
@@ -137,70 +140,16 @@ def check_alignment(data_dict, pc, var, align_and_nan, vmin_dict):
         print(f'Platform: {pc}; Vertical min: {vmin}; Var: {var} --> data has been aligned already')
         vmin_dict[pc][var] = True # to avoid doing hte vmin adjustment for this pc/var more than once
         
-        
-# Function to plot a specific variable
-def plotFilteredVar(data_xarr_var, title):
-    plt.figure()
-    # display(data_xarr)
-    data_xarr_var.plot()
-    plt.title(title)
-    
-    
+            
 # Function to plot a specific variable across the merged platforms
 def plotVar_MergedPlatforms(merged_arr_var, var, title):
     plt.figure()
     merged_arr_var[var].plot() 
     plt.title(title)
     
-    
-# Function to create a new xarray. DataArray
-def newXDA(oldarr, newarr_data, var):
-    da = xr.DataArray(
-        data=newarr_data, # this is the actual numpy array with the new desired shape
-        dims=oldarr.dims, # copy dimensions names from the old array (eg TIME, DEPTH)
-        coords=oldarr.coords, # copy coords
-        attrs=oldarr.attrs, # copy attrs
-        name=var # define var name
-    )
-    
-    return da
-
 
 # Function to define queries
 def getQuery(pc, start, stop):
     dims = f'[{start}:1:{stop}]' # in the format [start,step,stop]
     return dims
-
-# # function call for TIME
-# dim_name = 'TIME'
-# time_dims = getQuery(pc='AA', start=0, stop=pc_dim_dict[pc][dim_name])
-# print(dim_name, time_dims)
-
-# # function call for DEPTH
-# dim_name = 'DEPTH'
-# depth_dims = getQuery(pc='AA', start=0, stop=pc_dim_dict[pc][dim_name])
-# print(dim_name, depth_dims)
-
-# # join TIME and DEPTH for ONE Variables
-# var = 'TEMP'
-# queries_ONEvar = f'{var}{time_dims}{depth_dims}'
-# print(queries_ONEvar)
-
-# # join TIME and DEPTH for ALL Variables
-# var_str_ALL = []
-
-# for var in all_vars:
-#     var_str = f'{var}{time_dims}{depth_dims}'
-#     var_str_ALL = np.append(var_str_ALL, var_str)
-# queries_ALLvars = ','.join(var_str_ALL)
-# print(queries_ALLvars)
-
-# Combine positional queries and variable queries:
-# - Positional: queries_pos_str
-# - Variable: queries_ONEvar OR queries_ALLvars
-
-# # Combine Positions and Variables Queries
-# queries_all = ','.join([queries_pos_str,queries_ONEvar])
-# queries_all
-
 

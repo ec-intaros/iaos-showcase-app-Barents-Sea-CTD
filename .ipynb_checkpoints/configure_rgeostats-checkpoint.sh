@@ -1,25 +1,21 @@
 #!/bin/bash
 
-# This script aims at configuring Ellip Jupyter Notebooks server
-# for INTAROS RGeostats workshop
+"""
+This script aims at configuring Ellip Jupyter Notebooks server 
+for the RIntaros and RGeostats packages
+"""
 
 # Ask confirmation
 echo ""
 echo "## Welcome to RGeostats configuration script! ##"
 echo ""
-echo "You are going to overwrite old workshop stuff from the current directory."
+echo "You are going to overwrite old stuff from the current directory."
 read -p "Are you sure (Y/N)? " -n 1 -r
 echo    # (optional) move to a new line
 if [[ ! $REPLY =~ ^[Yy]$ ]]
 then
     exit
 fi
-
-# # Python modules
-# pip install netCDF4
-# pip install numpy
-# pip install shapely
-# pip install urllib3
 
 # R packages
 for package in r-rcpp r-maps r-mapdata r-mapproj r-png r-fields r-maptools r-proj4 r-ncdf4 r-raster r-rgdal r-gsl r-misc3d; do
