@@ -1,7 +1,11 @@
 # Notebooks
 ## Introduction
-These Notebooks provides guidance and support for data processing of Conductivity Temperature Depth (CTD) data, in particular by making use of the Geostatistical Library (RIntaros / RGeostats) for the modelisation of geostatistical relationships between variables, and to interpolate gridded data maps out of irregular CTD point measurements. In particular:
-* **Barrents sea - CTD data processing**: this is targeted to a scientist, who wants to test and analyse the functions of the various data structures (eg dataframes and xarrays) and geostatistical modules (ie RGeostats).    
+These Notebooks provides guidance and support for data processing of Conductivity Temperature Depth (CTD) measurements from instruments onboard of research vessels, and acquired from 1991 to 2020.
+
+The data access relies on queries to remote OPeNDAP servers hosting the CTD data, and the data processing makes use of the Geostatistical Library (RIntaros / RGeostats) for the modelisation of geostatistical relationships between variables, and to interpolate gridded data maps out of irregular CTD point measurements. 
+
+Two Notebooks have been developed for this purposes:
+* **Barrents sea - Data Scientist Notebook**: this is targeted to a scientist, who wants to test and analyse the functions of the various data structures (eg dataframes and xarrays) and geostatistical modules (ie RGeostats).    
 * **Barrents sea - Producer Notebook**: this is targeted to a producer, who has a specific goal in mind: producing a 2D map of *temperature* at a given depth, within a given bounding box and time interval, at a specified resolution. For this reason, at the beginning of this notebook, the user is prompted to enter the following input parameters:
     * **Depth**: the depth value of interest;  
     * **Bounding Box**: the longitude and latitude boundaries of interest;
@@ -24,12 +28,14 @@ Additional guidance and instructions are included within the Notebooks themselve
 From this Jupyter Lab environment, click on the "New" button, open a "Terminal" and then execute all the following shell commands:  
 
 ### RGeostats and RIntaros Packages
+The commands below install the RGeostats and RIntaros packages:
 ```
 chmod +x configure_rgeostats.sh
 ./configure_rgeostats.sh
 ```
 
 ### INTAROS Environment for Jupyter Notebook
+The commands below create a conda environment with all the necessary Python packages, and activate a kernel with such environment which can be used in a Jupyter Notebook.
 ```
 jupyter kernelspec uninstall env_intaros
 conda env create -f ./environment.yml
