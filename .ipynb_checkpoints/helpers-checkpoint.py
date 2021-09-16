@@ -148,6 +148,14 @@ def plotVar_MergedPlatforms(merged_arr_var, var, title):
     plt.title(title)
     
 
+# Function to plot a specific variable
+def plotFilteredVar(data_xarr_var, title):
+    plt.figure()
+    # display(data_xarr)
+    data_xarr_var.plot()
+    plt.title(title)
+    
+
 # Function to define queries
 def getQuery(pc, start, stop):
     dims = f'[{start}:1:{stop}]' # in the format [start,step,stop]
