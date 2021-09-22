@@ -6,7 +6,7 @@ import requests
 import re
 
 
-# Function to retrieve DDS info (sizes of 'TIME', 'LATITUDE', 'LONGITUDE', 'DEPTH', 'POSITION')
+# Function to retrieve DDS info (sizes of 'TIME', 'LATITUDE', 'LONGITUDE', 'DEPTH')
 def retrieveDDSinfo(dds):
     
     # Function to extract the dimension of a specific keyword
@@ -22,7 +22,7 @@ def retrieveDDSinfo(dds):
     unique_list = set(re.findall(r'\[.*?\]',r.text))
 #     print('Unique elements:', unique_list)
     
-    keys = ['TIME', 'LATITUDE', 'LONGITUDE', 'DEPTH', 'POSITION']
+    keys = ['TIME', 'LATITUDE', 'LONGITUDE', 'DEPTH']
 
     dim_dict = {}
 
