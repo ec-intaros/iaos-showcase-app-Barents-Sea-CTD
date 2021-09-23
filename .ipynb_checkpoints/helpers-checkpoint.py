@@ -4,7 +4,12 @@ import matplotlib.pyplot as plt
 import xarray as xr
 import requests
 import re
+from pyproj import Transformer
 
+from bokeh.plotting import figure, output_file, show, ColumnDataSource
+from bokeh.models import HoverTool, WheelZoomTool, BoxZoomTool, ResetTool, PanTool
+from bokeh.io import output_notebook
+from bokeh.tile_providers import OSM, get_provider
 
 # Function to retrieve DDS info (sizes of 'TIME', 'LATITUDE', 'LONGITUDE', 'DEPTH')
 def retrieveDDSinfo(dds):
@@ -161,3 +166,73 @@ def getQuery(pc, start, stop):
     dims = f'[{start}:1:{stop}]' # in the format [start,step,stop]
     return dims
 
+
+# Function to plot an interactive plot with Bokeh
+def plotInteractive(df2p, title, long, lat, xlim, ylim, bbox_dict=False):
+    output_notebook() # necessary to show the plot 
+    
+    # Define Hover tool
+    hover = HoverTool(tooltips=[
+        ("Index_ABS", "@Index_ABS"),
+        ("(Long, Lat)", f"(@{long}, @{lat})"),
+        ("Platform", "@Platform")])
+    
+    p = figure(plot_width=500, 
+               plot_height=500, 
+               tools=[hover, WheelZoomTool(), BoxZoomTool(), ResetTool(), PanTool()],
+               title=title,
+               x_range=xlim, 
+               y_range=ylim,
+               x_axis_type="mercator", y_axis_type="mercator" # this allows using the WGS84 units but non-linearly spaced
+              )
+    
+    # Add Country Boundaries
+    tile_provider = get_provider(OSM)
+    p.add_tile(tile_provider)
+    
+    # Add positions by platform in different colors
+    colors = ['blue','red','green','orange','purple','gold','cyan','lime','magenta']
+    
+    for i, pc in enumerate(df2p['Platform'].unique()):
+        p.circle(long, lat, 
+                 size=4, color=colors[i], fill_color='white', 
+                 source=df2p[df2p['Platform']==pc], 
+                 legend_label=f'Platform {pc}')
+
+    # Add BBOX area
+    if bbox_dict: 
+        bbox_val = list(bbox_dict.values())[0]
+        p.quad(left=bbox_val[0], right=bbox_val[1], top=bbox_val[3], bottom=bbox_val[2], 
+               legend_label=list(bbox_dict.keys())[0], fill_color='grey', fill_alpha=0.0, line_color="black")
+
+    # Add legend
+    p.legend.location = "bottom_right"
+    p.legend.click_policy="hide"
+
+    # Create an output html file for displaying, if needed
+#     output_file("interactive_plot_html.html")
+
+    show(p)
+    
+    
+# Function to reproject coordinate systems
+def reproject(crs_from, crs_to, lat, long):
+    transformer = Transformer.from_crs(crs_from=crs_from, crs_to=crs_to)
+    
+    reprj_long = transformer.transform(lat, long)[0]
+    reprj_lat = transformer.transform(lat, long)[1]
+    
+    return reprj_long, reprj_lat
+
+
+# Function to apply margin for extensions for Data Producer Notebook
+def applyMargin(value, f):
+    margin = 20 # ie 20% of value
+    """
+    value: input value to apply the margin to
+    f: flag, must be "low" or "high" for lower or higher boundary
+    """
+    if f == 'low': newvalue = value - (value * margin / 100)
+    elif f == 'high': newvalue = value + (value * margin / 100)
+    else: print('Wrong margin flag, must be "low" or "high".'); stop
+    return newvalue
