@@ -15,4 +15,5 @@ dependencies:
   - xarray
   - geopandas
   - bokeh
+  - rpy2
   
