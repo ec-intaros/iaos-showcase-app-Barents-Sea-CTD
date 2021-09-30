@@ -25,17 +25,8 @@ Additional guidance and instructions are included within the Notebooks themselve
 
 
 ## Configuration
-From this Jupyter Lab environment, click on the "New" button, open a "Terminal" and then execute all the following shell commands:  
+From this Jupyter Lab environment, click on the "New" button, open a "Terminal" and then execute all the following shell commands to create a conda environment with all the necessary Python packages, and activate a kernel with such environment which can be used in a Jupyter Notebook.
 
-### RGeostats and RIntaros Packages
-The commands below install the RGeostats and RIntaros packages:
-```
-chmod +x configure_rgeostats.sh
-./configure_rgeostats.sh
-```
-
-### INTAROS Environment for Jupyter Notebook
-The commands below create a conda environment with all the necessary Python packages, and activate a kernel with such environment which can be used in a Jupyter Notebook.
 ```
 jupyter kernelspec uninstall env_intaros
 conda env create -f ./environment.yml

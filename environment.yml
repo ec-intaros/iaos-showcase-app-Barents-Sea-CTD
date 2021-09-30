@@ -16,4 +16,16 @@ dependencies:
   - geopandas
   - bokeh
   - rpy2
-  
+  - r-rcpp
+  - r-maps
+  - r-mapdata
+  - r-mapproj
+  - r-ncdf4
+  - r-png 
+  - r-fields
+  - r-maptools
+  - r-proj4
+  - r-raster
+  - r-rgdal
+  - r-gsl
+  - r-misc3d
