@@ -226,13 +226,7 @@ def reproject(crs_from, crs_to, lat, long):
 
 
 # Function to apply margin for extensions for Data Producer Notebook
-def applyMargin(value, f):
-    margin = 20 # ie 20% of value
-    """
-    value: input value to apply the margin to
-    f: flag, must be "low" or "high" for lower or higher boundary
-    """
-    if f == 'low': newvalue = value - (value * margin / 100)
-    elif f == 'high': newvalue = value + (value * margin / 100)
-    else: print('Wrong margin flag, must be "low" or "high".'); stop
-    return newvalue
+def applyMargin(value):
+    margin = 20 # ie 20% of value to apply
+    margin_rel = value * margin / 100
+    return margin_rel
